@@ -57,8 +57,6 @@
 #    useXkbConfig = true; # use xkbOptions in tty.
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
   services.xserver = {
 	enable = true;
 	displayManager.sddm.enable = true;
@@ -69,11 +67,6 @@
 
   # Configure keymap in X11
   services.xserver.layout = "tr";
-  # services.xserver.xkbOptions = "";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -88,8 +81,33 @@
     extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
     shell = pkgs.zsh;
   };
+  # nixpkgs.config.allowUnfree = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
-  nixpkgs.config.allowUnfree = true;
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    # Modesetting is required.
+    modesetting.enable = true;
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+    powerManagement.enable = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    prime = {
+      offload = {
+			  enable = true;
+			  enableOffloadCmd = true;
+		  };
+      # Make sure to use the correct Bus ID values for your system!
+		  # sudo lshw -c display
+      intelBusId = "PCI:0:2:0";
+		  nvidiaBusId = "PCI:14:0:0";
+    };
+  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   qt.enable = true;
@@ -139,11 +157,23 @@
   services.openssh.enable = true;
   services.jellyfin.enable = true;
   services.jellyfin.openFirewall = true;
-  # Open ports in the firewall.
+  # Open ports in the firewall. jellyfin, steam etc.
+  # kde connect: https://userbase.kde.org/KDEConnect#Troubleshooting
+  networking.firewall.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [];
+    allowedUDPPorts = [];
+    allowedUDPPortRanges = [
+      #kdeconnect
+      { from = 1714; to = 1764; } ];
+    allowedTCPPortRanges = [
+      #kdeconnect 
+      { from = 1714; to = 1764; } ];
+    
+  };
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = true;
   environment.shells = with pkgs; [zsh ];
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
