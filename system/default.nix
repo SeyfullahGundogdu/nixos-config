@@ -1,0 +1,8 @@
+{
+  imports = [
+	./configuration.nix
+	./homeserver		
+];
+
+}
+

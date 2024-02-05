@@ -45,7 +45,7 @@
                     inherit theLCVariables;
                 };
                 modules = [ 
-                    ./system/configuration.nix
+                    ./system
                     inputs.minegrub-theme.nixosModules.default
                     home-manager.nixosModules.home-manager {
                         home-manager.extraSpecialArgs = { 
@@ -58,7 +58,7 @@
                         };
                         home-manager.useGlobalPkgs = true;
                         home-manager.useUserPackages = true;
-                        home-manager.users.${username} = import ./user/${username}/${username}.nix;
+                        home-manager.users.${username} = import ./user/${username};
                     }
                 ];
             };

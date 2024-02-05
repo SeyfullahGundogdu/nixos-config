@@ -4,24 +4,54 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+  # create a hardware Configuration with the first install and then put the generated boot options here
+  # then use the flake to regenerate your system
+  # imports =
+  #   [ (modulesPath + "/profiles/qemu-guest.nix")
+  #   ];
 
-  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  # boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
+  # boot.initrd.kernelModules = [ ];
+  # boot.kernelModules = [ "kvm-intel" ];
+  # boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/96dbb7ec-9aa6-423c-9b30-140359ceb795";
-      fsType = "ext4";
+  # fileSystems."/" =
+  #   { device = "/dev/disk/by-uuid/96dbb7ec-9aa6-423c-9b30-140359ceb795";
+  #     fsType = "ext4";
+  #   };
+  # swapDevices = [ {
+  #   device = "/swapfile";
+  #   size = 1024; #1024 MB
+  # } ];
+
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
+  hardware.nvidia = {
+    # Modesetting is required.
+    modesetting.enable = true;
+    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+    powerManagement.enable = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    prime = {
+      offload = {
+			  enable = true;
+			  enableOffloadCmd = true;
+		  };
+      # Make sure to use the correct Bus ID values for your system!
+		  # sudo lshw -c display
+      intelBusId = "PCI:0:2:0";
+		  nvidiaBusId = "PCI:1:0:0";
     };
+  };
 
-  swapDevices = [ {
-    device = "/swapfile";
-    size = 1024; #1024 MB
-  } ];
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
