@@ -22,7 +22,6 @@
 	#discord
 	#easyeffects
 	eza
-	firefox
 	#heroic
 	htop
 	#lapce
@@ -85,25 +84,28 @@
     };
   };
 
-  programs.alacritty = {
-    enable = true;
+  programs = {
+    alacritty.enable = true;
+    starship.enable = true;
+    git = {
+      enable = true;
+      userName = "${gitUsername}";
+      userEmail = "${gitEmail}";
+    };
+    firefox = {
+      enable = true;
+      package = pkgs.firefox.override {
+		    config.nativeMessagingHosts.packages = [pkgs.plasma5Packages.plasma-browser-integration];
+	    };
+    };
   };
-  programs.starship.enable = true;
-  programs.git = {
-    enable = true;
-    userName = "${gitUsername}";
-    userEmail = "${gitEmail}";
-  };
-
-  #
+  
   xdg = {
     userDirs = {
         enable = true;
         createDirectories = true;
     };
   };
-
-
   qt.enable = true;
   qt.platformTheme = "kde";
   qt.style.name = "adwaita-dark";
@@ -125,22 +127,8 @@
     # '';
   
 
-};
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. If you don't want to manage your shell through Home
-  # Manager then you have to manually source 'hm-session-vars.sh' located at
-  # either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/bake/etc/profile.d/hm-session-vars.sh
-  #
+  };
+
   home.sessionVariables = {
     EDITOR = "nano";
     BROWSER="firefox";
@@ -149,7 +137,8 @@
     TERMINAL_PROG="alacritty";
     MOZ_ENABLE_WAYLAND=1;
     MOZ_DISABLE_RDD_SANDBOX=1;  
-};
+    MOZ_USE_XINPUT2 = "1"; # https://nixos.wiki/wiki/Firefox#Use_xinput2
+  };
   nixpkgs.config.allowUnfree = true;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

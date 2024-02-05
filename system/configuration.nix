@@ -132,7 +132,6 @@
   services.openssh.enable = true;
   # Open ports in the firewall. jellyfin, steam etc.
   # kde connect: https://userbase.kde.org/KDEConnect#Troubleshooting
-  networking.firewall.enable = true;
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [];
