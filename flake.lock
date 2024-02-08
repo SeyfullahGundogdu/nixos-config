@@ -70,11 +70,27 @@
         "type": "indirect"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1707354351,
+        "narHash": "sha256-OJ6u8j9tU1I31YlvthvW7bYQSHlmEYq9XUVL+2yPrxE=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "710b3dbf99f137ced15844fc87ac403f8b2f7211",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "minegrub-theme": "minegrub-theme",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nur": "nur"
       }
     }
   },

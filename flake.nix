@@ -8,9 +8,11 @@
         minegrub-theme = {
             url = "github:Lxtharia/minegrub-theme";
         };
+	nur.url = "github:nix-community/NUR";
+
     };
   
-    outputs = inputs@{ nixpkgs, home-manager, ... }:
+    outputs = inputs@{ nixpkgs, home-manager, nur, ... }:
     let
         system = "x86_64-linux";
 
@@ -23,14 +25,6 @@
         theKBDLayout = "en";
         theLCVariables = "en_GB.UTF-8";
         theTimezone = "Europe/Istanbul";
-        browser = "firefox";
-        flakeDir = "/home/${username}/.config/home-manager";
-        pkgs = import nixpkgs {
-            inherit system;
-            config = {
-                allowUnfree = true;
-            };
-        };
     in {
         nixosConfigurations = {
             "${hostname}" = nixpkgs.lib.nixosSystem {
@@ -47,14 +41,15 @@
                 modules = [ 
                     ./system
                     inputs.minegrub-theme.nixosModules.default
+		            nur.nixosModules.nur ({ config, ... }: { #should put this code elsewhere.
+        	            environment.systemPackages = [ config.nur.repos.iagocq.ultimmc ];
+        	        })
                     home-manager.nixosModules.home-manager {
                         home-manager.extraSpecialArgs = { 
                             inherit username; 
                             inherit gitUsername; 
                             inherit gitEmail;
-                            inherit inputs; 
-                            inherit browser;
-                            inherit flakeDir;
+                            inherit inputs;
                         };
                         home-manager.useGlobalPkgs = true;
                         home-manager.useUserPackages = true;
