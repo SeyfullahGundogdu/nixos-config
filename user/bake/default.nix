@@ -4,8 +4,6 @@
   username, 
   gitUsername,
   gitEmail,
-  browser,
-  flakeDir,
   ... }:
 
 {
@@ -94,9 +92,6 @@
     };
     firefox = {
       enable = true;
-      package = pkgs.firefox.override {
-		    config.nativeMessagingHosts.packages = [pkgs.plasma5Packages.plasma-browser-integration];
-	    };
     };
   };
   
