@@ -1,9 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-
-{
+{pkgs, ...}: {
   services.minecraft-server = {
     enable = true;
     openFirewall = true;

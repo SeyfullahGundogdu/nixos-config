@@ -1,8 +1,6 @@
 {
   imports = [
-	./configuration.nix
-	./homeserver		
-];
-
+    ./configuration.nix
+    ./homeserver
+  ];
 }
-
