@@ -15,7 +15,6 @@
     nixpkgs,
     home-manager,
     nur,
-    alejandra,
     ...
   }: let
     system = "x86_64-linux";
