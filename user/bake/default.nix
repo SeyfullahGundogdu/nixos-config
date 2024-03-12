@@ -9,39 +9,44 @@
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "23.11";
+  home.pointerCursor = {
+    x11.enable = true; #might not be needed for wayland
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+  };
+  imports = [./plasma.nix];
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     alacritty
+    foot
     bat
-    #bitwarden
-    #dbeaver
-    #deadbeef
-    #discord
-    #easyeffects
+    bitwarden
+    dbeaver
+    deadbeef
+    discord
+    easyeffects
     eza
-    #heroic
+    heroic
     htop
-    #lapce
-    #lutris
-    #mangohud
+    lapce
+    lutris
+    mangohud
     neofetch
-    #obs-studio
-    #postgresql
-    #postman
-    #qbittorrent
-    #qpwgraph
-    #rustdesk
-    #signal-desktop
-    #spotify
-    soundux
-    #starship
-
-    #steam
-    #transmission
-    #tutanota-desktop
-    #vlc
-    #vscode
-    #wireshark
+    obs-studio
+    postgresql
+    postman
+    qbittorrent
+    qpwgraph
+    rustdesk
+    signal-desktop
+    spotify
+    starship
+    vesktop
+    steam
+    transmission
+    tutanota-desktop
+    vlc
+    wireshark
     (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
 
     # (pkgs.writeShellScriptBin "my-hello" ''
@@ -74,10 +79,10 @@
       bindkey ';5C' emacs-forward-word
       bindkey ';5D' emacs-backward-word
     '';
-
     shellAliases = {
       cat = "bat";
       ls = "eza -al --color=always --group-directories-first";
+      yolo = "sudo nixos-rebuild switch --flake .";
     };
   };
 
@@ -93,7 +98,23 @@
       enable = true;
     };
   };
-
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      kamadorueda.alejandra
+      rust-lang.rust-analyzer
+      catppuccin.catppuccin-vsc
+      catppuccin.catppuccin-vsc-icons
+      yzhang.markdown-all-in-one
+      ms-vscode.cpptools
+      jnoortheen.nix-ide
+      vscjava.vscode-java-debug
+      redhat.java
+      vscjava.vscode-maven
+      vscjava.vscode-java-dependency
+      vscjava.vscode-java-test
+    ];
+  };
   xdg = {
     userDirs = {
       enable = true;
@@ -102,7 +123,7 @@
   };
   qt.enable = true;
   qt.platformTheme = "kde";
-  qt.style.name = "adwaita-dark";
+  qt.style.name = "breeze-dark";
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -126,9 +147,9 @@
     BROWSER = "firefox";
     TERM = "alacritty";
     TERMINAL = "alacritty";
-    TERMINAL_PROG = "alacritty";
     MOZ_ENABLE_WAYLAND = 1;
     MOZ_DISABLE_RDD_SANDBOX = 1;
+    NIXOS_OZONE_WL = 1;
     MOZ_USE_XINPUT2 = "1"; # https://nixos.wiki/wiki/Firefox#Use_xinput2
   };
   nixpkgs.config.allowUnfree = true;

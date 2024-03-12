@@ -4,65 +4,72 @@
 {
   config,
   lib,
+  pkgs,
   modulesPath,
   ...
 }: {
-  # create a hardware Configuration with the first install and then put the generated boot options here
-  # then use the flake to regenerate your system
   imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
+  boot.kernelParams = [
+    "i915.enable_fbc=1"
+    #"i915.enable_psr=2"
+  ];
+  #NVIDIA stuff
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"]; # or "nvidiaLegacy470 etc.
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      #sudo lshw -c display
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+
+  #tuxedo stuff
+  hardware.tuxedo-keyboard.enable = true;
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/96dbb7ec-9aa6-423c-9b30-140359ceb795";
+    device = "/dev/disk/by-uuid/3ec05340-4c0a-4122-8b3f-f00029f9d54a";
     fsType = "ext4";
   };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/D46B-FED2";
+    fsType = "vfat";
+  };
+
   swapDevices = [
-    {
-      device = "/swapfile";
-      size = 1024;
-    }
+    {device = "/dev/disk/by-uuid/6e218fda-6d79-41bf-a8d0-6de245dbfe61";}
   ];
-
-  # hardware.cpu.intel.updateMicrocode = true;
-  # hardware.opengl = {
-  #   enable = true;
-  #   driSupport = true;
-  #   driSupport32Bit = true;
-  # };
-
-  # # Load nvidia driver for Xorg and Wayland
-  # services.xserver.videoDrivers = ["nvidia"];
-  # hardware.nvidia = {
-  #   # Modesetting is required.
-  #   modesetting.enable = true;
-  #   # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-  #   powerManagement.enable = false;
-  #   nvidiaSettings = true;
-  #   package = config.boot.kernelPackages.nvidiaPackages.stable;
-  #   prime = {
-  #     offload = {
-  #       enable = true;
-  #       enableOffloadCmd = true;
-  #     };
-  #     # Make sure to use the correct Bus ID values for your system!
-  #     # sudo lshw -c display
-  #     intelBusId = "PCI:0:2:0";
-  #     nvidiaBusId = "PCI:1:0:0";
-  #   };
-  # };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp8s0f1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault true;
 }

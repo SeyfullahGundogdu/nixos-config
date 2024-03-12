@@ -1,5 +1,9 @@
 {
   services = {
+    jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
     prowlarr = {
       enable = true;
       openFirewall = true;

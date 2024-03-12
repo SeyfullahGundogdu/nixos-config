@@ -14,28 +14,35 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+
+  services.power-profiles-daemon.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
   nixpkgs.config.allowUnfree = true;
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.minegrub-theme = {
-    enable = true;
-    splash = "NixOS Rocks";
-  };
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
-  #boot.loader.grub.useOSProber = true;
+
+  boot.loader.grub.efiSupport = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.useOSProber = true;
 
   # Enable networking
   networking.hostName = "${hostname}";
   networking.networkmanager.enable = true;
-  # Set your time zone
+  # Set time zone
   time.timeZone = "${theTimezone}";
   # Select internationalisation properties
   i18n.defaultLocale = "${theLocale}";
   i18n.extraLocaleSettings = {
+    LC_ALL = "${theLCVariables}";
     LC_ADDRESS = "${theLCVariables}";
     LC_IDENTIFICATION = "${theLCVariables}";
     LC_MEASUREMENT = "${theLCVariables}";
@@ -56,7 +63,7 @@
     enable = true;
     displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
-    layout = "tr";
+    xkb.layout = "tr";
   };
 
   # Enable sound.
@@ -69,6 +76,11 @@
     pulse.enable = true;
     jack.enable = true;
   };
+
+  fonts.packages = with pkgs; [
+    roboto
+  ];
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
   programs.zsh.enable = true;
@@ -78,21 +90,23 @@
   users.users."${username}" = {
     isNormalUser = true;
     initialPassword = "bake";
-    extraGroups = ["wheel" "networkmanager" "libvirtd"];
+    extraGroups = ["wheel" "networkmanager" "libvirtd" "docker"];
     shell = pkgs.zsh;
   };
   environment.systemPackages = with pkgs; [
-    #cmake
-    #java
-    #obs
+    bibata-cursors
+    cmake
+    jdk17
     vim
     wget
     killall
-    #libclang
-    #libgcc
+    libclang
+    libgcc
     libsForQt5.kate
+    libnotify
     nano
     ncdu
+    nil
     #obs-studio
     #heroic
     #bitwarden
@@ -100,19 +114,19 @@
     #deadbeef
     #discord
     #easyeffects
-    #wireshark
-    #tutanota-desktop
-    #signal-desktop
+    wireshark
+    tutanota-desktop
+    signal-desktop
     #rustdesk
-    #qbittorrent
-    #qpwgraph
+    qbittorrent
+    qpwgraph
     neovim
-    #rustup
-    vscode
-    #lapce
-    #gparted
-    #goverlay
-    #tree
+    rustup
+    lapce
+    gparted
+    goverlay
+    tree
+    nushell
   ];
   programs.mtr.enable = true;
 

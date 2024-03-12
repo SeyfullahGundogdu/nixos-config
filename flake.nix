@@ -2,19 +2,28 @@
   description = "SeyfullahConfig";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    minegrub-theme = {
-      url = "github:Lxtharia/minegrub-theme";
-    };
+
     nur.url = "github:nix-community/NUR";
+
+    plasma-manager.url = "github:pjones/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.inputs.home-manager.follows = "home-manager";
+
+    tuxedo-nixos = {
+      url = "github:blitz/tuxedo-nixos";
+    };
   };
 
   outputs = inputs @ {
     nixpkgs,
     home-manager,
     nur,
+    plasma-manager,
+    tuxedo-nixos,
     ...
   }: let
     system = "x86_64-linux";
@@ -43,12 +52,17 @@
         };
         modules = [
           ./system
-          inputs.minegrub-theme.nixosModules.default
+          tuxedo-nixos.nixosModules.default
+          {
+            hardware.tuxedo-control-center.enable = true;
+            hardware.tuxedo-control-center.package = tuxedo-nixos.packages.x86_64-linux.default;
+          }
           nur.nixosModules.nur
           ({config, ...}: {
             #should put this code elsewhere.
             environment.systemPackages = [config.nur.repos.iagocq.ultimmc];
           })
+
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {
@@ -56,6 +70,7 @@
               inherit gitUsername;
               inherit gitEmail;
               inherit inputs;
+              inherit plasma-manager;
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
