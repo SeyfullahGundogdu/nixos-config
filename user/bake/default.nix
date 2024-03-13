@@ -60,7 +60,7 @@
       path = "${config.xdg.dataHome}/zsh/zsh_history";
       extended = true;
       ignoreDups = true;
-      share = true;
+      share = false; #don't share between shell instances
     };
 
     historySubstringSearch = {
@@ -98,6 +98,7 @@
       enable = true;
     };
   };
+  
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
@@ -113,6 +114,7 @@
       vscjava.vscode-maven
       vscjava.vscode-java-dependency
       vscjava.vscode-java-test
+      ryu1kn.partial-diff
     ];
   };
   xdg = {
