@@ -120,6 +120,7 @@
 
     # programming
     libclang
+    gcc
     libgcc
     llvmPackages_latest.libclang.lib
     rustc
