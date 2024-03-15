@@ -10,17 +10,12 @@
     plasma-manager.url = "github:pjones/plasma-manager";
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.inputs.home-manager.follows = "home-manager";
-
-    tuxedo-nixos = {
-      url = "github:blitz/tuxedo-nixos";
-    };
   };
 
   outputs = inputs @ {
     nixpkgs,
     home-manager,
     plasma-manager,
-    tuxedo-nixos,
     ...
   }: let
     system = "x86_64-linux";
@@ -49,11 +44,6 @@
         };
         modules = [
           ./system
-          tuxedo-nixos.nixosModules.default
-          {
-            hardware.tuxedo-control-center.enable = true;
-            hardware.tuxedo-control-center.package = tuxedo-nixos.packages.x86_64-linux.default;
-          }
 
           home-manager.nixosModules.home-manager
           {
