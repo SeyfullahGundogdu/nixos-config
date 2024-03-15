@@ -94,39 +94,75 @@
     shell = pkgs.zsh;
   };
   environment.systemPackages = with pkgs; [
-    bibata-cursors
+    #terminals
+    alacritty
+    foot
+
+    #shells
+    nushell
+    zsh
+
+    #CLI tools
+    bat
     cmake
-    jdk17
-    vim
-    wget
+    eza
+    htop
     killall
-    libclang
-    libgcc
-    libsForQt5.kate
     libnotify
     nano
     ncdu
+    neofetch
+    neovim
+    vim
+    starship
+    tree
+    wget
+
+    # programming
+    libclang
+    libgcc
+    llvmPackages_latest.libclang.lib
+    rustc
+    cargo
+    jdk17
     nil
-    #obs-studio
-    #heroic
-    #bitwarden
-    #dbeaver
-    #deadbeef
-    #discord
-    #easyeffects
-    wireshark
-    tutanota-desktop
-    signal-desktop
-    #rustdesk
+    postman
+    lapce
+    maven
+    nodejs_18
+
+    #Desktop apps
+    bibata-cursors
+    bitwarden
+    dbeaver
+    postgresql
+    deadbeef
+    discord
+    easyeffects
+    gparted
+    heroic
+    libsForQt5.kate
+    obs-studio
     qbittorrent
     qpwgraph
-    neovim
-    rustup
-    lapce
-    gparted
+    rustdesk
+    signal-desktop
+    spotify
+    transmission
+    tutanota-desktop
+    vesktop
+    vlc
+    wireshark
+
+    #gaming
     goverlay
-    tree
-    nushell
+    lutris
+    mangohud
+    steam
+
+    #fonts
+
+    (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
   ];
   programs.mtr.enable = true;
 

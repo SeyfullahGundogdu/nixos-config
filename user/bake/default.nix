@@ -17,74 +17,8 @@
   imports = [./plasma.nix];
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    alacritty
-    foot
-    bat
-    bitwarden
-    dbeaver
-    deadbeef
-    discord
-    easyeffects
-    eza
-    heroic
-    htop
-    lapce
-    lutris
-    mangohud
-    neofetch
-    obs-studio
-    postgresql
-    postman
-    qbittorrent
-    qpwgraph
-    rustdesk
-    signal-desktop
-    spotify
-    starship
-    vesktop
-    steam
-    transmission
-    tutanota-desktop
-    vlc
-    wireshark
-    (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
-
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    #managed by configuration.nix
   ];
-  programs.zsh = {
-    enable = true;
-    history = {
-      size = 300000000;
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
-      extended = true;
-      ignoreDups = true;
-      share = false; #don't share between shell instances
-    };
-
-    historySubstringSearch = {
-      enable = true;
-      searchUpKey = "$terminfo[kcuu1]";
-      searchDownKey = "$terminfo[kcud1]";
-    };
-    autocd = true;
-    dotDir = ".config/zsh";
-    enableAutosuggestions = true;
-    syntaxHighlighting = {
-      enable = true;
-      highlighters = ["main" "brackets" "pattern" "regexp" "line"];
-    };
-    initExtra = ''
-      bindkey ';5C' emacs-forward-word
-      bindkey ';5D' emacs-backward-word
-    '';
-    shellAliases = {
-      cat = "bat";
-      ls = "eza -al --color=always --group-directories-first";
-      yolo = "sudo nixos-rebuild switch --flake .";
-    };
-  };
 
   programs = {
     alacritty.enable = true;
@@ -93,12 +27,55 @@
       enable = true;
       userName = "${gitUsername}";
       userEmail = "${gitEmail}";
+      extraConfig = {
+        init.defaultBranch = "main";
+      };
     };
     firefox = {
       enable = true;
+      profiles.seyfullah.settings = {
+        # Always use XDG portals for stuff
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
+        "widget.use-xdg-desktop-portal.mime-handler" = 1;
+        "widget.use-xdg-desktop-portal.settings" = 1;
+        "widget.use-xdg-desktop-portal.location" = 1;
+        "widget.use-xdg-desktop-portal.open-uri" = 1;
+      };
+    };
+    zsh = {
+      enable = true;
+      history = {
+        size = 300000000;
+        path = "${config.xdg.dataHome}/zsh/zsh_history";
+        extended = true;
+        ignoreDups = true;
+        share = false; #don't share between shell instances
+      };
+
+      historySubstringSearch = {
+        enable = true;
+        searchUpKey = "$terminfo[kcuu1]";
+        searchDownKey = "$terminfo[kcud1]";
+      };
+      autocd = true;
+      dotDir = ".config/zsh";
+      enableAutosuggestions = true;
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = ["main" "brackets" "pattern" "regexp" "line"];
+      };
+      initExtra = ''
+        bindkey ';5C' emacs-forward-word
+        bindkey ';5D' emacs-backward-word
+      '';
+      shellAliases = {
+        cat = "bat";
+        ls = "eza -al --color=always --group-directories-first";
+        yolo = "sudo nixos-rebuild switch --flake .";
+      };
     };
   };
-  
+
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
@@ -108,24 +85,38 @@
       catppuccin.catppuccin-vsc-icons
       yzhang.markdown-all-in-one
       ms-vscode.cpptools
+      eamodio.gitlens
       jnoortheen.nix-ide
-      vscjava.vscode-java-debug
-      redhat.java
-      vscjava.vscode-maven
-      vscjava.vscode-java-dependency
-      vscjava.vscode-java-test
-      ryu1kn.partial-diff
+      ms-azuretools.vscode-docker
+      ms-vscode-remote.remote-ssh
     ];
+    userSettings = {
+      "workbench.colorTheme" = "Catppuccin Mocha";
+      "workbench.iconTheme" = "catppuccin-mocha";
+      "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "nil";
+      # "nix.serverPath" = "nixd";
+      "editor.fontSize" = 15;
+      "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace', monospace";
+    };
   };
+
   xdg = {
     userDirs = {
       enable = true;
       createDirectories = true;
     };
+    configFile = {
+      # --enable-ozone
+      # --enable-features=UseOzonePlatform
+      "code-flags.conf".text = ''
+        --ozone-platform=wayland
+      '';
+    };
   };
   qt.enable = true;
   qt.platformTheme = "kde";
-  qt.style.name = "breeze-dark";
+  qt.style.name = "Breeze";
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
