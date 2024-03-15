@@ -21,6 +21,11 @@
   ];
 
   programs = {
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = true;
+    };
     alacritty.enable = true;
     starship.enable = true;
     git = {
@@ -89,6 +94,7 @@
       jnoortheen.nix-ide
       ms-azuretools.vscode-docker
       ms-vscode-remote.remote-ssh
+      mkhl.direnv
     ];
     userSettings = {
       "workbench.colorTheme" = "Catppuccin Mocha";
@@ -98,6 +104,7 @@
       # "nix.serverPath" = "nixd";
       "editor.fontSize" = 15;
       "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace', monospace";
+      "security.workspace.trust.banner" = "never";
     };
   };
 
@@ -128,6 +135,7 @@
     ".config/alacritty/alacritty.toml".source = ./config/alacritty/alacritty.toml;
     ".config/starship.toml".source = ./config/starship/starship.toml;
     ".config/foot/foot.ini".source = ./config/foot/foot.ini;
+    ".config/MangoHud/MangoHud.conf".source = ./config/MangoHud/MangoHud.conf;
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
