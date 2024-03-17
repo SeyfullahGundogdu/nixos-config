@@ -18,28 +18,23 @@
     plasma-manager,
     ...
   }: let
-    system = "x86_64-linux";
-
     # User Variables
-    hostname = "nixos";
+    hostname = "kurohitsugi";
     username = "bake";
     gitUsername = "Seyfullah Gündoğdu";
     gitEmail = "seyfullahgundogdu74@gmail.com";
     theLocale = "en_GB.UTF-8";
-    theKBDLayout = "en";
     theLCVariables = "en_GB.UTF-8";
     theTimezone = "Europe/Istanbul";
   in {
     nixosConfigurations = {
       "${hostname}" = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit system;
           inherit inputs;
           inherit username;
           inherit hostname;
           inherit theTimezone;
           inherit theLocale;
-          inherit theKBDLayout;
           inherit theLCVariables;
         };
         modules = [
@@ -53,6 +48,7 @@
               inherit gitEmail;
               inherit inputs;
               inherit plasma-manager;
+              inherit hostname;
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

@@ -4,6 +4,7 @@
   username,
   gitUsername,
   gitEmail,
+  hostname,
   ...
 }: {
   home.username = "${username}";
@@ -16,9 +17,9 @@
   };
   imports = [./plasma.nix];
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    #managed by configuration.nix
-  ];
+  # home.packages = with pkgs; [
+  # #managed by configuration.nix
+  # ];
 
   programs = {
     direnv = {
@@ -64,7 +65,7 @@
       };
       autocd = true;
       dotDir = ".config/zsh";
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       syntaxHighlighting = {
         enable = true;
         highlighters = ["main" "brackets" "pattern" "regexp" "line"];
@@ -76,7 +77,7 @@
       shellAliases = {
         cat = "bat";
         ls = "eza -al --color=always --group-directories-first";
-        yolo = "sudo nixos-rebuild switch --flake .";
+        yolo = "sudo nixos-rebuild boot --flake .#${hostname}";
       };
     };
   };

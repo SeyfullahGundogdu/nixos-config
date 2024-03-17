@@ -10,21 +10,13 @@
   theLCVariables,
   ...
 }: {
+  nixpkgs.config.allowUnfree = true;
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
   services.power-profiles-daemon.enable = true;
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
-  nixpkgs.config.allowUnfree = true;
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
 
@@ -77,14 +69,19 @@
     jack.enable = true;
   };
 
-  fonts.packages = with pkgs; [
-    roboto
-  ];
-
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
   programs.zsh.enable = true;
   programs.dconf.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   # Define a user account.
   # Don't forget to set a different password with ‘passwd’.
   users.users."${username}" = {
