@@ -52,7 +52,7 @@
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./user/${username};
+            home-manager.users.${username} = import ./home/${username};
           }
         ];
       };
