@@ -10,12 +10,14 @@
     plasma-manager.url = "github:pjones/plasma-manager";
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.inputs.home-manager.follows = "home-manager";
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
 
   outputs = inputs @ {
     nixpkgs,
     home-manager,
     plasma-manager,
+    spicetify-nix,
     ...
   }: let
     # User Variables
@@ -49,6 +51,7 @@
               inherit inputs;
               inherit plasma-manager;
               inherit hostname;
+              inherit spicetify-nix;
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

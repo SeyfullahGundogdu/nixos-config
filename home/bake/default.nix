@@ -1,6 +1,7 @@
 {
   pkgs,
   username,
+  spicetify-nix,
   ...
 }: {
   home.username = "${username}";
@@ -9,6 +10,7 @@
   imports = [
     ./programs.nix
     ./plasma.nix
+    ./spicetify.nix
   ];
   fonts.fontconfig.enable = true;
   # home.packages = with pkgs; [
