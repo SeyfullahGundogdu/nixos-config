@@ -6,11 +6,6 @@
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "23.11";
-  home.pointerCursor = {
-    x11.enable = true; #might not be needed for wayland
-    name = "Bibata-Modern-Ice";
-    package = pkgs.bibata-cursors;
-  };
   imports = [
     ./programs.nix
     ./plasma.nix
