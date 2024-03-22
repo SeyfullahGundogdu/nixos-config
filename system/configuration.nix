@@ -101,6 +101,7 @@
 
     #CLI tools
     bat
+    cava
     cmake
     eza
     htop

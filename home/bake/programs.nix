@@ -58,6 +58,7 @@
         "editor.fontSize" = 15;
         "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace', monospace";
         "security.workspace.trust.banner" = "never";
+        "terminal.integrated.fontSize" = 15;
       };
     };
     zsh = {

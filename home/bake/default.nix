@@ -1,9 +1,4 @@
-{
-  pkgs,
-  username,
-  spicetify-nix,
-  ...
-}: {
+{username, ...}: {
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "23.11";
@@ -41,6 +36,7 @@
     ".config/starship.toml".source = ./config/starship.toml;
     ".config/foot/foot.ini".source = ./config/foot/foot.ini;
     ".config/MangoHud/MangoHud.conf".source = ./config/MangoHud/MangoHud.conf;
+    ".config/cava/config".source = ./config/cava/config;
   };
 
   home.sessionVariables = {
