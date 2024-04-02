@@ -11,5 +11,11 @@
     ./starship.nix
     ./vscode.nix
     ./zsh.nix
+
+    # hyprland stuff
+    ./pywal
+    ./hyprland
+    ./waybar.nix
+    ./mako
   ];
 }

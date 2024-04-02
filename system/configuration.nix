@@ -87,10 +87,16 @@
   users.users."${username}" = {
     isNormalUser = true;
     initialPassword = "bake";
-    extraGroups = ["wheel" "networkmanager" "libvirtd" "docker"];
+    extraGroups = ["wheel" "networkmanager" "libvirtd" "docker" "input"];
     shell = pkgs.zsh;
   };
+  programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [
+    pywal
+    hyprlock
+    swww
+    mako
+
     #terminals
     alacritty
     foot
