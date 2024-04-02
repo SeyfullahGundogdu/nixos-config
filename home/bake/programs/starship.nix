@@ -65,7 +65,7 @@
         pyenv_prefix = "venv ";
         python_binary = ["./venv/bin/python" "python" "python3" "python2"];
         detect_extensions = ["py"];
-        version_format = "v$${raw}";
+        version_format = "v\${raw}";
       };
     };
   };
