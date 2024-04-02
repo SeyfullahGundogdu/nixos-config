@@ -13,6 +13,7 @@
       ms-azuretools.vscode-docker
       ms-vscode-remote.remote-ssh
       mkhl.direnv
+      ms-python.python
     ];
     userSettings = {
       "workbench.colorTheme" = "Catppuccin Mocha";
