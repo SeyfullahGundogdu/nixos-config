@@ -92,10 +92,14 @@
   };
   programs.hyprland.enable = true;
   environment.systemPackages = with pkgs; [
+    #hyprland stuff
     pywal
     hyprlock
     swww
     mako
+    pamixer
+    pavucontrol
+    brightnessctl
 
     #terminals
     alacritty
