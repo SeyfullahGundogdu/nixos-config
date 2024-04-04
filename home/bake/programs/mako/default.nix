@@ -1,7 +1,11 @@
-{config, ...}: {
+{
   # our pywal config has a conflict with this,
   # doesn't matter though, executable is still available
   # services.mako.enable = true;
+  home.file.".config/mako" = {
+    source = ./mako;
+    recursive = true;
+  };
 }
 # example config
 # background-color=#0c0403
