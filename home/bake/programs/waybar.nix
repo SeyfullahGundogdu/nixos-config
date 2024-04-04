@@ -69,8 +69,8 @@
           capslock = true;
           format = "{name} {icon}";
           format-icons = {
-            locked = "";
-            unlocked = "";
+            locked = " ";
+            unlocked = " ";
           };
         };
 
@@ -103,8 +103,8 @@
           "rotate" = 0;
           "format" = "{icon}";
           "format-icons" = [" " " " " " " " " " " " " " " " " "];
-          "on-scroll-up" = "brightnessctl set 5%+";
-          "on-scroll-down" = "brightnessctl set 5%-";
+          "on-scroll-up" = "brightnessctl --device intel_backlight set 5%+";
+          "on-scroll-down" = "brightnessctl --device intel_backlight --min-value=1000 set 5%-";
         };
 
         battery = {
