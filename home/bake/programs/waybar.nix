@@ -153,7 +153,7 @@
       @import "colors-waybar.css";
          * {
            border: none;
-           font-family: JetBrainsMono Nerd Font;
+           font-family: Noto Sans Mono;
            font-size: 16px;
          }
 

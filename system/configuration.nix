@@ -99,7 +99,9 @@
     mako
     pamixer
     pavucontrol
+    playerctl
     brightnessctl
+    wev
 
     #terminals
     alacritty
@@ -168,13 +170,17 @@
     lutris
     mangohud
     steam
-
-    #fonts
-
-    (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
   ];
   programs.mtr.enable = true;
 
+  # fonts
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+
+    (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
+  ];
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -187,6 +193,7 @@
   };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.smartd.enable = true;
   # Open ports in the firewall. jellyfin, steam etc.
   # kde connect: https://userbase.kde.org/KDEConnect#Troubleshooting
   networking.firewall = {

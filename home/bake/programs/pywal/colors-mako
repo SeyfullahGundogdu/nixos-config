@@ -11,6 +11,7 @@ actions=1
 max-visible=5
 default-timeout=6000
 margin=10,10
+font=Noto Sans 12
 
 [urgency=high]
 ignore-timeout=1
