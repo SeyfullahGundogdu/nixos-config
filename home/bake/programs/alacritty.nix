@@ -32,19 +32,19 @@
       font = {
         size = 14;
         bold = {
-          family = "JetBrains Mono Nerd Font";
+          family = "RobotoMono";
           style = "Bold";
         };
         bold_italic = {
-          family = "JetBrains Mono Nerd Font";
+          family = "RobotoMono";
           style = "BoldItalic";
         };
         italic = {
-          family = "JetBrains Mono Nerd Font";
+          family = "RobotoMono";
           style = "MediumItalic";
         };
         normal = {
-          family = "JetBrains Mono Nerd Font";
+          family = "RobotoMono";
           style = "Medium";
         };
       };

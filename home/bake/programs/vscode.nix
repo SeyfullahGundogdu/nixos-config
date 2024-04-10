@@ -22,7 +22,7 @@
       "nix.serverPath" = "nil";
       # "nix.serverPath" = "nixd";
       "editor.fontSize" = 15;
-      "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace', monospace";
+      "editor.fontFamily" = "'RobotoMono', 'monospace', monospace";
       "security.workspace.trust.banner" = "never";
       "terminal.integrated.fontSize" = 15;
     };

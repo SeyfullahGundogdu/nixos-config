@@ -102,6 +102,7 @@
     playerctl
     brightnessctl
     wev
+    grimblast
 
     #terminals
     alacritty
@@ -178,6 +179,7 @@
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
+    roboto-mono
 
     (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
   ];
