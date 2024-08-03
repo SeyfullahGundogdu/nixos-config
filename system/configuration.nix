@@ -53,10 +53,10 @@
 
   services.xserver = {
     enable = true;
-    displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
     xkb.layout = "tr";
   };
+  services.displayManager.sddm.enable = true;
 
   # Enable sound.
   # https://nixos.wiki/wiki/PipeWire
@@ -69,8 +69,9 @@
     jack.enable = true;
   };
 
+  services.flatpak.enable = true;
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
   programs.zsh.enable = true;
   programs.dconf.enable = true;
   virtualisation.docker = {
@@ -90,20 +91,25 @@
     extraGroups = ["wheel" "networkmanager" "libvirtd" "docker" "input"];
     shell = pkgs.zsh;
   };
-  programs.hyprland.enable = true;
+  specialisation = {
+    hyprland.configuration = {
+      programs.hyprland.enable = true;
+      environment.systemPackages = with pkgs; [
+        #hyprland stuff
+        pywal
+        hyprlock
+        swww
+        mako
+        pamixer
+        pavucontrol
+        playerctl
+        brightnessctl
+        grimblast
+        waybar
+      ];
+    };
+  };
   environment.systemPackages = with pkgs; [
-    #hyprland stuff
-    pywal
-    hyprlock
-    swww
-    mako
-    pamixer
-    pavucontrol
-    playerctl
-    brightnessctl
-    wev
-    grimblast
-
     #terminals
     alacritty
     foot
@@ -111,6 +117,7 @@
     #shells
     nushell
     zsh
+    nh
 
     #CLI tools
     bat
@@ -127,6 +134,7 @@
     vim
     starship
     tree
+    wev
     wget
 
     # programming
@@ -146,7 +154,7 @@
     #Desktop apps
     bibata-cursors
     bitwarden
-    dbeaver
+    dbeaver-bin
     postgresql
     deadbeef
     discord
@@ -160,11 +168,12 @@
     rustdesk
     signal-desktop
     spotify
-    transmission
+    transmission_3
     tutanota-desktop
     vesktop
     vlc
     wireshark
+    zed-editor
 
     #gaming
     goverlay

@@ -28,6 +28,7 @@
     initExtra = ''
       bindkey ';5C' emacs-forward-word
       bindkey ';5D' emacs-backward-word
+      export XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
     '';
     shellAliases = {
       cat = "bat";

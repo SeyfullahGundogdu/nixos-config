@@ -25,7 +25,7 @@
     };
   };
   qt.enable = true;
-  qt.platformTheme = "kde";
+  qt.platformTheme.name = "kde";
   qt.style.name = "Breeze";
 
   home.sessionVariables = {
