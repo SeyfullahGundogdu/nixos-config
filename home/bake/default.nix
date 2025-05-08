@@ -2,14 +2,8 @@
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "23.11";
-  imports = [
-    #all the config files are defined in that directory
-    #./programs
-  ];
+
   fonts.fontconfig.enable = true;
-  # home.packages = with pkgs; [
-  # #managed by configuration.nix
-  # ];
 
   xdg = {
     userDirs = {
@@ -17,8 +11,6 @@
       createDirectories = true;
     };
     configFile = {
-      # --enable-ozone
-      # --enable-features=UseOzonePlatform
       "code-flags.conf".text = ''
         --ozone-platform=wayland
       '';
@@ -39,6 +31,5 @@
     MOZ_USE_XINPUT2 = "1"; # https://nixos.wiki/wiki/Firefox#Use_xinput2
   };
   nixpkgs.config.allowUnfree = true;
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
