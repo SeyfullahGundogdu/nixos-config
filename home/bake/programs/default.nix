@@ -15,6 +15,6 @@
     ./pywal
     ./hyprland
     ./waybar.nix
-    ./mako
+    #./mako
   ];
 }
