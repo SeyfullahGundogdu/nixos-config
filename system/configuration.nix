@@ -184,14 +184,14 @@
   programs.mtr.enable = true;
 
   # fonts
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
-    roboto-mono
-
-    (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
-  ];
+  #fonts.packages = with pkgs; [
+  #  noto-fonts
+  #  noto-fonts-cjk-sans
+  #  noto-fonts-emoji
+  #  roboto-mono
+#
+  #  (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
+  #];
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
