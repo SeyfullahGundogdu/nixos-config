@@ -40,20 +40,20 @@
           ./system
         disko.nixosModules.disko
         ./disko.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = {
-              inherit username;
-              inherit gitUsername;
-              inherit gitEmail;
-              inherit inputs;
-              inherit hostname;
-              inherit spicetify-nix;
-            };
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./home/${username};
-          }
+          # home-manager.nixosModules.home-manager
+          # {
+          #   home-manager.extraSpecialArgs = {
+          #     inherit username;
+          #     inherit gitUsername;
+          #     inherit gitEmail;
+          #     inherit inputs;
+          #     inherit hostname;
+          #     inherit spicetify-nix;
+          #   };
+          #   home-manager.useGlobalPkgs = true;
+          #   home-manager.useUserPackages = true;
+          #   home-manager.users.${username} = import ./home/${username};
+          # }
         ];
       };
     };
