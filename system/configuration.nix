@@ -99,7 +99,7 @@
         pywal
         hyprlock
         swww
-        mako
+        #mako
         pamixer
         pavucontrol
         playerctl
