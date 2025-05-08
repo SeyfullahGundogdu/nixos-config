@@ -53,9 +53,9 @@
 
   services.xserver = {
     enable = true;
-    desktopManager.plasma5.enable = true;
     xkb.layout = "tr";
   };
+  services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
 
   # Enable sound.
@@ -165,7 +165,7 @@
     obs-studio
     qbittorrent
     qpwgraph
-    rustdesk
+    #rustdesk
     signal-desktop
     spotify
     transmission_3

@@ -6,7 +6,7 @@
     ./firefox.nix
     ./git.nix
     ./mangohud.nix
-    ./plasma.nix
+#    ./plasma.nix
     ./spicetify.nix
     ./starship.nix
     ./vscode.nix

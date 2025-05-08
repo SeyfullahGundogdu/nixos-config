@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-
+    disko.url = "github:nix-community/disko";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -18,6 +18,7 @@
     home-manager,
     plasma-manager,
     spicetify-nix,
+	disko,
     ...
   }: let
     # User Variables
@@ -41,7 +42,8 @@
         };
         modules = [
           ./system
-
+        disko.nixosModules.disko
+        ./disko.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.extraSpecialArgs = {
@@ -54,11 +56,13 @@
               inherit spicetify-nix;
             };
             home-manager.useGlobalPkgs = true;
+            home-manager.backupFileExtension = "backup";
             home-manager.useUserPackages = true;
             home-manager.users.${username} = import ./home/${username};
           }
         ];
       };
     };
+
   };
 }

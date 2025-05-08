@@ -43,20 +43,6 @@
   #tuxedo stuff
   hardware.tuxedo-keyboard.enable = true;
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/3ec05340-4c0a-4122-8b3f-f00029f9d54a";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D46B-FED2";
-    fsType = "vfat";
-  };
-
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/6e218fda-6d79-41bf-a8d0-6de245dbfe61";}
-  ];
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
