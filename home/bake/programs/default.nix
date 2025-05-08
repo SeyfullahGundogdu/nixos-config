@@ -12,9 +12,8 @@
     ./zsh.nix
 
     # hyprland stuff
-    ./pywal
+    #./pywal
     ./hyprland
     ./waybar.nix
-    #./mako
   ];
 }
