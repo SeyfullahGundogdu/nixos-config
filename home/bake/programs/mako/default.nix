@@ -3,7 +3,7 @@
   # doesn't matter though, executable is still available
   # services.mako.enable = true;
   home.file.".config/mako" = {
-    source = ./mako;
+#    source = ./mako;
     recursive = true;
   };
 }
