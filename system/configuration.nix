@@ -149,7 +149,7 @@
     postman
     lapce
     maven
-    nodejs_18
+    #nodejs_18
 
     #Desktop apps
     bibata-cursors
