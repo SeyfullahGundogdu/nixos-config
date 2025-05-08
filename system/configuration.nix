@@ -53,7 +53,7 @@
 
   services.xserver = {
     enable = true;
-    desktopManager.plasma5.enable = true;
+    desktopManager.plasma6.enable = true;
     xkb.layout = "tr";
   };
   services.displayManager.sddm.enable = true;
@@ -165,7 +165,7 @@
     obs-studio
     qbittorrent
     qpwgraph
-    rustdesk
+    #rustdesk
     signal-desktop
     spotify
     transmission_3
