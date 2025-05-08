@@ -4,7 +4,7 @@
   home.stateVersion = "23.11";
   imports = [
     #all the config files are defined in that directory
-    ./programs
+    #./programs
   ];
   fonts.fontconfig.enable = true;
   # home.packages = with pkgs; [
