@@ -6,7 +6,7 @@
     ./firefox.nix
     ./git.nix
     ./mangohud.nix
-    ./spicetify.nix
+    #./spicetify.nix
     ./starship.nix
     ./vscode.nix
     ./zsh.nix
