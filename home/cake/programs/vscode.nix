@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       kamadorueda.alejandra
       rust-lang.rust-analyzer
       catppuccin.catppuccin-vsc
@@ -15,16 +15,17 @@
       mkhl.direnv
       ms-python.python
     ];
-    userSettings = {
+    profiles.default.userSettings = {
       "workbench.colorTheme" = "Catppuccin Mocha";
       "workbench.iconTheme" = "catppuccin-mocha";
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nil";
       # "nix.serverPath" = "nixd";
       "editor.fontSize" = 15;
-      "editor.fontFamily" = "'RobotoMono', 'monospace', monospace";
+      "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace', monospace";
       "security.workspace.trust.banner" = "never";
       "terminal.integrated.fontSize" = 15;
+      "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace', monospace";
     };
   };
 }

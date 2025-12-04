@@ -11,6 +11,7 @@
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
+
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -29,10 +30,13 @@
   # Enable networking
   networking.hostName = "${hostname}";
   networking.networkmanager.enable = true;
+
   # Set time zone
   time.timeZone = "${theTimezone}";
   # Select internationalisation properties
+
   i18n.defaultLocale = "${theLocale}";
+
   i18n.extraLocaleSettings = {
     LC_ALL = "${theLCVariables}";
     LC_ADDRESS = "${theLCVariables}";
@@ -46,32 +50,50 @@
     LC_TIME = "${theLCVariables}";
   };
 
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "trq";
+  services.xserver.xkb = {
+    layout = "tr";
+    variant = "";
   };
 
-  services.xserver = {
-    enable = true;
-    xkb.layout = "tr";
+  programs.spicetify.enable = true;
+  programs.spicetify.theme = {
+    name = "Comfy";
+    src = "${pkgs.fetchFromGitHub {
+      owner = "Comfy-Themes";
+      repo = "Spicetify";
+      rev = "2c22f3649a82e599be0e7eb506a0f83459caf9e8";
+      hash = "sha256-KyhQuWotqcIHb9dU3PZnJe6QWN7LYbczR0W7IAxWGbg=";
+    }}/Comfy";
+
+    injectCss = true;
+    injectThemeJs = true;
+    replaceColors = true;
+    overwriteAssets = true;
+    sidebarConfig = true;
+    homeConfig = true;
+    additonalCss = "";
   };
+
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.autoNumlock = true;
+  console.keyMap = "trq";
 
-  # Enable sound.
-  # https://nixos.wiki/wiki/PipeWire
+  services.printing.enable = true;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
   };
 
+  programs.firefox.enable = true;
+
   services.flatpak.enable = true;
-  # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+
   programs.zsh.enable = true;
   programs.dconf.enable = true;
   virtualisation.docker = {
@@ -83,14 +105,13 @@
     };
   };
 
-  # Define a user account.
-  # Don't forget to set a different password with ‘passwd’.
   users.users."${username}" = {
     isNormalUser = true;
-    initialPassword = "bake";
+    initialPassword = "cake";
     extraGroups = ["wheel" "networkmanager" "libvirtd" "docker" "input"];
     shell = pkgs.zsh;
   };
+
   specialisation = {
     hyprland.configuration = {
       programs.hyprland.enable = true;
@@ -149,49 +170,53 @@
     postman
     lapce
     maven
-    nodejs_18
+    vscode
 
     #Desktop apps
-    bibata-cursors
-    bitwarden
+    bitwarden-desktop
     dbeaver-bin
     postgresql
-    deadbeef
     discord
     easyeffects
-    gparted
-    heroic
-    libsForQt5.kate
-    obs-studio
     qbittorrent
     qpwgraph
-    #rustdesk
     signal-desktop
-    spotify
-    transmission_3
+    slack
+    transmission_4
     tutanota-desktop
     vesktop
     vlc
-    wireshark
     zed-editor
 
     #gaming
     goverlay
     lutris
     mangohud
-    steam
-  ];
-  programs.mtr.enable = true;
 
-  # fonts
+    # KDE
+    kdePackages.kcalc
+    kdePackages.kcharselect
+    kdePackages.kclock
+    kdePackages.kcolorchooser
+    kdePackages.kolourpaint
+    kdePackages.ksystemlog
+    kdePackages.sddm-kcm
+    kdePackages.isoimagewriter
+    kdePackages.partitionmanager
+  ];
+
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    noto-fonts-color-emoji
     roboto-mono
 
-    (nerdfonts.override {fonts = ["JetBrainsMono" "DroidSansMono"];})
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.droid-sans-mono
   ];
+
+  programs.mtr.enable = true;
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -209,8 +234,8 @@
   # kde connect: https://userbase.kde.org/KDEConnect#Troubleshooting
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [];
-    allowedUDPPorts = [];
+    allowedTCPPorts = [3389];
+    allowedUDPPorts = [3389];
     allowedUDPPortRanges = [
       #kdeconnect
       {
@@ -239,7 +264,24 @@
       options = "--delete-older-than 7d";
     };
   };
+  # remap copilot key to right click
+  services.evremap = {
+    enable = true;
+    settings.device_name = "AT Translated Set 2 keyboard";
+    settings.remap = [
+      {
+        input = [
+          "KEY_LEFTMETA"
+          "KEY_LEFTSHIFT"
+          "KEY_F23"
+        ];
+        output = [
+          "BTN_RIGHT"
+        ];
+      }
+    ];
+  };
 
   security.polkit.enable = true;
-  system.stateVersion = "23.05";
+  system.stateVersion = "25.05";
 }

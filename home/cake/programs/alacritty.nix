@@ -32,20 +32,20 @@
       font = {
         size = 14;
         bold = {
-          family = "RobotoMono";
+          family = "JetBrains Mono Nerd Font";
           style = "Bold";
         };
         bold_italic = {
-          family = "RobotoMono";
+          family = "JetBrains Mono Nerd Font";
           style = "BoldItalic";
         };
         italic = {
-          family = "RobotoMono";
+          family = "JetBrains Mono Nerd Font";
           style = "MediumItalic";
         };
         normal = {
-          family = "RobotoMono";
-          style = "Medium";
+          family = "JetBrains Mono Nerd Font";
+          style = "Regular";
         };
       };
       scrolling = {

@@ -1,6 +1,6 @@
 {
   imports = [
     ./configuration.nix
-    ./homeserver
+    # ./homeserver
   ];
 }
