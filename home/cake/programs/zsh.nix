@@ -33,7 +33,7 @@
     shellAliases = {
       cat = "bat";
       ls = "eza -al --color=always --group-directories-first";
-      yolo = "sudo nixos-rebuild boot --flake .#${hostname}";
+      yolo = "nh os boot && reboot";
     };
   };
 }

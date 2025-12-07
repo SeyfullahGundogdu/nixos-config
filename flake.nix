@@ -37,8 +37,8 @@
         };
         modules = [
           ./system
-          #disko.nixosModules.disko
-          #./disko.nix
+          disko.nixosModules.disko
+          ./disko.nix
           inputs.spicetify-nix.nixosModules.default
           home-manager.nixosModules.home-manager
           {
