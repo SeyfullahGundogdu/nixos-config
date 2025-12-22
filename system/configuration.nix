@@ -8,11 +8,15 @@
   theLCVariables,
   ...
 }: {
-  nixpkgs.config.allowUnfree = true;
-
+  _module.args.specialisation = lib.mkOption {
+    type = lib.types.str;
+    default = "default";
+  };
   imports = [
     ./hardware-configuration.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -172,11 +176,12 @@
   specialisation = {
     hyprland.configuration = {
       #https://github.com/nix-community/nh
+      _module.args.specialisation = "hyprland";
       environment.etc."specialisation".text = "hyprland";
       programs.hyprland.enable = true;
       environment.systemPackages = with pkgs; [
-        #hyprland stuff
-        pywal
+        # hyprland stuff
+        # pywal & waybar enabled in hm
         hyprlock
         swww
         mako
@@ -185,7 +190,6 @@
         playerctl
         brightnessctl
         grimblast
-        waybar
       ];
     };
   };

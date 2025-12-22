@@ -1,8 +1,4 @@
-{
-  config,
-  hostname,
-  ...
-}: {
+{config, ...}: {
   programs.zsh = {
     enable = true;
     history = {

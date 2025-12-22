@@ -1,4 +1,4 @@
-{username, pkgs, ...}: {
+{username, ...}: {
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "23.11";
@@ -7,10 +7,6 @@
     ./programs
   ];
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    cowsay
-  ];
-
   xdg = {
     userDirs = {
       enable = true;
@@ -28,13 +24,13 @@
 
   home.sessionVariables = {
     EDITOR = "nano";
-    # BROWSER = "firefox";
-    # TERM = "alacritty";
-    # TERMINAL = "alacritty";
-    # MOZ_ENABLE_WAYLAND = 1;
-    # MOZ_DISABLE_RDD_SANDBOX = 1;
-    # NIXOS_OZONE_WL = 1;
-    # MOZ_USE_XINPUT2 = "1"; # https://nixos.wiki/wiki/Firefox#Use_xinput2
+    BROWSER = "firefox";
+    TERM = "alacritty";
+    TERMINAL = "alacritty";
+    MOZ_ENABLE_WAYLAND = 1;
+    MOZ_DISABLE_RDD_SANDBOX = 1;
+    NIXOS_OZONE_WL = 1;
+    MOZ_USE_XINPUT2 = "1"; # https://nixos.wiki/wiki/Firefox#Use_xinput2
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

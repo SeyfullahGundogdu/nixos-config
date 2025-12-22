@@ -20,11 +20,11 @@
       "workbench.iconTheme" = "catppuccin-mocha";
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nil";
-      # "nix.serverPath" = "nixd";
       "editor.fontSize" = 15;
       "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace', monospace";
       "security.workspace.trust.banner" = "never";
       "terminal.integrated.fontSize" = 15;
+      "terminal.integrated.suggest.enabled" = false;
       "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace', monospace";
     };
   };
